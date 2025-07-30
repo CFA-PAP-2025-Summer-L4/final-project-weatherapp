@@ -73,7 +73,7 @@ async function showWeather() {
 
         // airQuality.textContent = `Air Quality: ${humidityValue}`;
         humidity.textContent = `${humidityValue}%`;
-        wind.textContent = `${windSpeed} km/h`;
+        wind.textContent = `${windSpeed} mph`;
     } else {
         // airQuality.textContent = "No air quality data available.";
         humidity.textContent = "No humidity data available.";
