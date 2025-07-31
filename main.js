@@ -82,7 +82,7 @@ async function showWeather() {
         airQuality.textContent = `${epaIndex} - ${epaStatus(epaIndex)}`;
         uvIndex.textContent = `${weatherData.current.uv}`;
         humidity.textContent = `${weatherData.current.humidity}%`;
-        wind.textContent = `${weatherData.current.wind_kph} mph ${weatherData.current.wind_dir}`;
+        wind.textContent = `${weatherData.current.wind_mph} mph ${weatherData.current.wind_dir}`;
         pressure.textContent = `${weatherData.current.pressure_in} inHg`;
     } else {
         airQuality.textContent = "No air quality data available.";
