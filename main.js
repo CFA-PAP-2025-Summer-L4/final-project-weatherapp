@@ -21,7 +21,7 @@ const card = document.querySelector('.card');
 const apiKey = "e0bda7ed56631cf6f858df8289d218aa";
 
 let city;
-
+// Main input event
 weatherForm.addEventListener('submit', async event => {
 
     event.preventDefault();
@@ -30,10 +30,13 @@ weatherForm.addEventListener('submit', async event => {
 
     if (city) {
         try {
-          const weatherData = await getWeatherData(city);
-          displayWeatherInfo(weatherData);
+            // Reuhen's section
+         // const weatherData = await getWeatherData(city);
+         // displayWeatherInfo(weatherData);
+          // Jimmy's section
           const city = cityInput.value.trim();
           if (city) loadWeatherData(city);
+          // Helen's section
           showWeather(city);
         }
         catch (error) {
@@ -212,7 +215,7 @@ function epaStatus(epaIndex) {
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
-  loadWeatherData(DEFAULT_LOCATION);
+  // loadWeatherData(DEFAULT_LOCATION);
   setupScrollNavigation();
 });
 
@@ -292,7 +295,7 @@ function formatHour(h) {
   if (h > 12)    return `${h - 12} PM`;
   return `${h} AM`;
 }
-=======
+
 
 
 
