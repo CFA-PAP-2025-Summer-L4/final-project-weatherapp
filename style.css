@@ -1,3 +1,30 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: auto;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background-color: #87c6e6;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Lato', sans-serif;
+}
+
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(51, 49, 108);
+  color: white;
+  text-align: center;
+}
 .navbar {
   display: flex;
   justify-content: space-between;
