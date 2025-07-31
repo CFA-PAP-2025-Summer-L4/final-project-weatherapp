@@ -16,9 +16,21 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <header class="container-fluid text-center">
-        <h1 class="display-1 mx-auto">WeatherWise!</h1>
-    </header>
+    <nav class="navbar">
+        <div class="logo-brand-wrapper">
+        <img id="logo" src="Weather-logo.png" alt="Weather App Logo">
+
+        <a class="navbar-brand" style="text-decoration: none" href="home.html">WeatherWise</a>
+        </div>
+
+        <form class="form-inline">
+        <input class="formInput" type="search" placeholder="Enter City" aria-label="Search">
+        <button class="searchbar" type="submit">Get Weather</button>
+        </form>
+    </nav>
+
+    <div class="card">
+    </div>
 
     <section class="container-sm text-center mt-5">
         <div class="row g-5">
