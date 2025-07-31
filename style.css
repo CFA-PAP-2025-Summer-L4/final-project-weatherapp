@@ -1,0 +1,138 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.logo-brand-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+}
+
+.navbar-brand {
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #222;
+}
+
+.form-inline {
+  display: flex;
+  gap: 10px;
+}
+
+.form-control {
+  padding: 8px 12px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.searchbar {
+  padding: 8px 16px;
+  font-size: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.searchbar:hover {
+  background-color: #0056b3;
+}
+
+.card {
+  background: linear-gradient(145deg, #007bff, #00c6ff);
+  border-radius: 16px;
+  padding: 40px 30px;
+  color: white;
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#cityDisplay {
+  font-size: 42px;
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.tempDisplay {
+  font-size: 100px;
+  font-weight: 200;
+  text-align: center;
+  margin: 10px 0;
+  color: #ffffff;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 25px;
+  padding: 25px 35px;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  line-height: 1;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.weatherEmoji {
+  font-size: 80px;
+  margin: 15px 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weatherDescription {
+  font-size: 24px;
+  margin: 10px 0 0 0;
+  opacity: 0.95;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+#errorDisplay {
+  font-size: 20px;
+  text-align: center;
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-top: 15px;
+}
