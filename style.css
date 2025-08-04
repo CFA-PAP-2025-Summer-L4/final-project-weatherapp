@@ -178,7 +178,7 @@ body {
     max-width: 1200px;
 }
 
-.hourly-forecast-section {
+.hourly-forecast-section, .day-forecast-section{
     position: relative;
     background: linear-gradient(90deg, 
         rgba(0, 0, 0, 0.3) 0%, 
@@ -287,3 +287,18 @@ body {
     .hourly-cards-container::-webkit-scrollbar {
         height: 4px;
     }
+}
+
+/* .day-forecast-section {
+    position: relative;
+    background: linear-gradient(90deg, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.2) 25%, 
+        rgba(255, 165, 0, 0.2) 50%, 
+        rgba(135, 206, 235, 0.3) 75%, 
+        rgba(135, 206, 235, 0.4) 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+} */

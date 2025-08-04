@@ -1,4 +1,3 @@
-
 const WEATHERAPI_KEY      = '7e6079e943144c088e9194933253007';
 const WEATHERAPI_BASE_URL = 'https://api.weatherapi.com/v1';
 
@@ -46,12 +45,14 @@ weatherForm.addEventListener('submit', async event => {
             loadWeatherData(city);
             // Helen's section
             showWeather(city);
+            // Rukiya's section
+            showForecast(city);
         }
         catch (error) {
             console.error(error)
             displayError(error)
         }
-    } 
+    }
     else {
         displayError("Please enter a city name.");
     }
@@ -269,6 +270,58 @@ function formatHour(h) {
 }
 
 
+// 5-Day Forecast
+const apiKey = "30479ac799194889b47204401253107";
+const baseUrl = "http://api.weatherapi.com/v1";
+const forecast = "/forecast.json"
+
+async function getForecast(city) {
+    const finalUrl = baseUrl + forecast + "?key=" + apiKey + "&q=" + city + "&days=5";
+
+    try {
+        let forecast = await fetch(finalUrl);
+        const data = await forecast.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function showForecast(city){
+    let data = await getForecast(city);
+    const forcastRow = document.querySelector("#forecast-row");
+    forcastRow.innerHTML = "";
+
+    data.forecast.forecastday.forEach(days => {
+        let date = days.date;
+        console.log(date);
+        let dateOb = new Date(date);
+        let weekday = dateOb.toLocaleDateString("en-US", {weekday: "long", timeZone: "UTC"});
+
+        let icon = days.day.condition.icon;
+        let maxTemp = days.day.maxtemp_f;
+        let minTemp = days.day.mintemp_f;
+
+        forcastRow.innerHTML += 
+            `<div class = "row">
+                <div class = "col-6 text-center">
+                    ${weekday} 
+                </div>
+
+                <div class = "col-3">
+                </div>
+
+                <div class = "col-3">
+                    <img src= "${icon}"/> ${maxTemp}°F ${minTemp}°F
+                </div>
+            </div>`;
+    });
+}
+// showForecast();
+
+
+
 // Fun Fact API
 const funFactApi = "https://api.api-ninjas.com/v1/facts?";
 const  funFactApiKey = "2PEZcWfNMed2t9E75rD0KA==f0IhxzBGJslzMW7C";
@@ -301,4 +354,5 @@ async function showFunFact() {
     }
 }
 showFunFact();
+
 
