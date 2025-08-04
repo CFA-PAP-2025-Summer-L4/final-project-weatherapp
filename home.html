@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="author" content="Helen Jiang">
+    <meta name="author" content="Helen, Rukiya, Reuhen, Jimmy">
     <meta name="description" content="Weather Wise Project - A weather application that provides current weather data and forecasts.">
     <meta name="keywords" content="weather, forecast, climate, temperature, humidity, wind speed">
     <title>Weather Wise Project</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" 
-          rel="stylesheet" 
+          rel="stylesheet"
           integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" 
           crossorigin="anonymous">
     <!-- Custom CSS -->
@@ -32,7 +32,7 @@
 
     <div class="card">
     </div>
-    
+
     <div class="container mt-4">
 
       <div class="hourly-forecast-section mb-4">
@@ -41,6 +41,14 @@
         </div>
         <div class="hourly-cards-container"></div>
       </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="day-forecast-section mb-4">
+            <h3>5-day Forecast</h3>
+            <div class="container" id="forecast-row">
+            </div>
+        </div>
     </div>
 
     <section class="container-sm text-center mt-5">
@@ -106,6 +114,5 @@
 
     <!-- JavaScript -->
     <script src="main.js"></script>
-
   </body>
 </html>
