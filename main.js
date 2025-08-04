@@ -4,8 +4,6 @@ const WEATHERAPI_BASE_URL = 'https://api.weatherapi.com/v1';
 const hourlyCardsContainer = document.querySelector('.hourly-cards-container');
 const cityNameHeader = document.getElementById('city-name');
 
-const DEFAULT_LOCATION = 'Bellevue, WA';
-
 
 const airQuality = document.querySelector("#air-quality");
 const humidity = document.querySelector("#humidity");
@@ -39,8 +37,15 @@ weatherForm.addEventListener('submit', async event => {
     if (city) {
         try {
             // Reuhen's section
+            // Reuhen's section
             const weatherData = await getWeatherData(city);
             displayWeatherInfo(weatherData);
+            // Jimmy's section
+            loadWeatherData(city);
+            // Helen's section
+            showWeather(city);
+            // Rukiya's section
+            showForecast(city);
             // Jimmy's section
             loadWeatherData(city);
             // Helen's section
@@ -76,9 +81,8 @@ function displayWeatherInfo(data) {
     const city = data.location.name;
     const temp = data.current.temp_f;
     const weather_descriptions = data.current.condition.text;
-    const weather_code = data.current.condition.code;
 
-    console.log("Weather Code:", weather_code);
+    console.log("Weather Condition:", weather_descriptions);
 
     card.textContent = '';
     card.style.display = 'flex';
@@ -122,8 +126,9 @@ function getWeatherEmoji(weather_descriptions) {
     if (description.includes("light rain")) return "🌦️";
     if (description.includes("light snow")) return "🌨️";
 
-    return "🌈";
+    return "🌈"; // Default emoji if no match found
 }
+
 
 function displayError(message) {
     const errorDisplay = document.createElement('p');
@@ -325,7 +330,6 @@ async function showForecast(city){
             </div>`;
     });
 }
-// showForecast();
 
 
 
@@ -361,5 +365,3 @@ async function showFunFact() {
     }
 }
 showFunFact();
-
-
