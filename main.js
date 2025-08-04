@@ -8,7 +8,23 @@ const fact = document.querySelector("#fun-fact");
 const weatherForm = document.querySelector('.form-inline');
 const cityInput = document.querySelector('.formInput');
 const card = document.querySelector('.card');
-const apiKey = "e0bda7ed56631cf6f858df8289d218aa";
+
+
+// const apiKey = "e0bda7ed56631cf6f858df8289d218aa";
+// const apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}`
+
+
+// Weather Api
+const weatherApiKey = "e1116162e8bb4d738bc190848253107";
+// let city = "Seattle";
+const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&aqi=yes&q=`;
+
+const params2 = {
+    method: "GET",
+    headers: {
+        "X-Api-Key": weatherApiKey
+    }
+};
 
 let city;
 
@@ -37,7 +53,8 @@ weatherForm.addEventListener('submit', async event => {
 });
 
 async function getWeatherData(city) {
-    const apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}`
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&query=${city}`
+    //const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&aqi=yes&q=`;
 
     const response = await fetch(apiUrl);
 
@@ -45,11 +62,16 @@ async function getWeatherData(city) {
         throw new Error("Failed to fetch weather data");
     }
     return await response.json();
-
-
 }
+
 function displayWeatherInfo(data) {
-    const { location: { name: city }, current: { temperature: temp, weather_descriptions, weather_code } } = data;
+    // const { location: { name: city }, current: { temperature: temp, weather_descriptions, weather_code } } = data;
+    const city = data.location.name;
+    const temp = data.current.temp_f;
+    const weather_descriptions = data.current.condition.text;
+    const weather_code = data.current.condition.code;
+
+    console.log("Weather Code:", weather_code);
 
     card.textContent = '';
     card.style.display = 'flex';
@@ -60,9 +82,9 @@ function displayWeatherInfo(data) {
     const descriptionDisplay = document.createElement('p');
 
     cityDisplay.textContent = city;
-    tempDisplay.textContent = `${Math.round(temp * 9/5 + 32)}°F`;
+    tempDisplay.textContent = `${temp}°F`;
     weatherEmoji.textContent = getWeatherEmoji(weather_code);
-    descriptionDisplay.textContent = weather_descriptions[0];
+    descriptionDisplay.textContent = weather_descriptions;
 
     cityDisplay.id = 'cityDisplay';
     tempDisplay.classList.add('tempDisplay');
@@ -74,18 +96,20 @@ function displayWeatherInfo(data) {
     card.appendChild(weatherEmoji);
     card.appendChild(descriptionDisplay);
 }
+
 function getWeatherEmoji(weatherCode) {
-    if (weatherCode === 113) return "☀️";
-    if (weatherCode === 116) return "⛅";
-    if ([119, 122].includes(weatherCode)) return "☁️"; 
-    if ([143, 248, 260].includes(weatherCode)) return "🌫️";
-    if (weatherCode >= 176 && weatherCode <= 296) return "🌦️"; 
-    if (weatherCode >= 179 && weatherCode <= 284) return "🌨️"; 
-    if ([200, 386, 389].includes(weatherCode)) return "⛈️"; 
-    if (weatherCode >= 299 && weatherCode <= 320) return "🌧️"; 
-    if (weatherCode >= 323 && weatherCode <= 395) return "❄️"; 
+    if (weatherCode === 1000) return "☀️";
+    if (weatherCode === 1003) return "⛅";
+    if ([1006, 1009].includes(weatherCode)) return "☁️"; 
+    if ([1030, 1135, 1147].includes(weatherCode)) return "🌫️";
+    if (weatherCode >= 1063 && weatherCode <= 1195) return "🌦️"; 
+    if (weatherCode >= 1204 && weatherCode <= 1237) return "🌨️"; 
+    if ([1087, 1273, 1276, 1279, 1282].includes(weatherCode)) return "⛈️"; 
+    if (weatherCode >= 1240 && weatherCode <= 1264) return "🌧️"; 
+    if (weatherCode >= 1279 && weatherCode <= 1282) return "❄️"; 
     return "🌈";
 }
+
 function displayError(message) {
     const errorDisplay = document.createElement('p');
     errorDisplay.textContent = message;
@@ -97,55 +121,8 @@ function displayError(message) {
 }
 
 
-// Fun Fact API
-const funFactApi = "https://api.api-ninjas.com/v1/facts?";
-const  funFactApiKey = "2PEZcWfNMed2t9E75rD0KA==f0IhxzBGJslzMW7C";
-
-// authenticate the API key
-const params = {
-    method: "GET",
-    headers: {
-        "X-Api-Key": funFactApiKey
-    }
-};
-
-async function fetchFunFact() {
-    try {
-        const response = await fetch(funFactApi, params);
-        console.log("Response from fun fact API:", response);
-        return await response.json();
-    } catch (error) {
-        console.error("Error fetching fun fact:", error);
-        fact.textContent = "Could not fetch fun fact. Please try again later.";
-    }
-}
-
-// fetchFunFact();
-
-async function showFunFact() {
-    let facts = await fetchFunFact();
-    if (facts && facts.length > 0) {
-        fact.textContent = facts[0].fact;
-    } else {
-        fact.textContent = "No fun fact available at the moment.";
-    }
-}
-showFunFact();
 
 /*** Get Weather Data ***/
-
-
-// Weather Api
-const weatherApiKey = "e1116162e8bb4d738bc190848253107";
-// let city = "Seattle";
-const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&aqi=yes&q=`;
-
-const params2 = {
-    method: "GET",
-    headers: {
-        "X-Api-Key": weatherApiKey
-    }
-};
 
 async function fetchWeather(city) {
     try {
@@ -201,4 +178,36 @@ function epaStatus(epaIndex) {
 }
 
 
+// Fun Fact API
+const funFactApi = "https://api.api-ninjas.com/v1/facts?";
+const  funFactApiKey = "2PEZcWfNMed2t9E75rD0KA==f0IhxzBGJslzMW7C";
+
+// authenticate the API key
+const params = {
+    method: "GET",
+    headers: {
+        "X-Api-Key": funFactApiKey
+    }
+};
+
+async function fetchFunFact() {
+    try {
+        const response = await fetch(funFactApi, params);
+        console.log("Response from fun fact API:", response);
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching fun fact:", error);
+        fact.textContent = "Could not fetch fun fact. Please try again later.";
+    }
+}
+
+async function showFunFact() {
+    let facts = await fetchFunFact();
+    if (facts && facts.length > 0) {
+        fact.textContent = facts[0].fact;
+    } else {
+        fact.textContent = "No fun fact available at the moment.";
+    }
+}
+showFunFact();
 
