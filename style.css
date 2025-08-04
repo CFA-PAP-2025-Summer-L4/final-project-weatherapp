@@ -19,7 +19,7 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgb(51, 49, 108);
+  background-color: rgb(92, 172, 223);
   color: white;
   text-align: center;
 }
@@ -29,8 +29,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
+  background-color: #87c6e6;
+  border-bottom: 1px solid #5f96b1;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
@@ -81,7 +81,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(145deg, #007bff, #00c6ff);
+  background: linear-gradient(145deg, #3270b4, #00c6ff);
   border-radius: 16px;
   padding: 40px 30px;
   color: white;
@@ -288,17 +288,3 @@ body {
         height: 4px;
     }
 }
-
-/* .day-forecast-section {
-    position: relative;
-    background: linear-gradient(90deg, 
-        rgba(0, 0, 0, 0.3) 0%, 
-        rgba(0, 0, 0, 0.2) 25%, 
-        rgba(255, 165, 0, 0.2) 50%, 
-        rgba(135, 206, 235, 0.3) 75%, 
-        rgba(135, 206, 235, 0.4) 100%);
-    border-radius: 15px;
-    padding: 2rem;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-} */
