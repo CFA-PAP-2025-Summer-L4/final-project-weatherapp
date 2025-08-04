@@ -1,3 +1,166 @@
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(90deg,
+        #1a1a2e 0%,
+        #16213e 25%,
+        #ff6b35 50%,
+        #87ceeb 75%,
+        #87ceeb 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.hourly-forecast-section {
+    position: relative;
+    background: linear-gradient(90deg, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.2) 25%, 
+        rgba(255, 165, 0, 0.2) 50%, 
+        rgba(135, 206, 235, 0.3) 75%, 
+        rgba(135, 206, 235, 0.4) 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+
+.hourly-forecast-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        #1a1a2e 0%,
+        #16213e 25%,
+        #ff6b35 50%,
+        #87ceeb 75%,
+        #87ceeb 100%);
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.section-title {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 1.5rem;
+}
+
+.section-title h3 {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0;
+}
+
+.hourly-cards-container {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.5rem 1rem;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.hourly-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    min-width: 120px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+}
+
+.hourly-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hourly-card .time {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.hourly-card .weather-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hourly-card .temperature {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    .hourly-card {
+        min-width: 100px;
+        padding: 1rem 0.5rem;
+    }
+    
+    .hourly-card .time {
+        font-size: 0.8rem;
+    }
+    
+    .hourly-card .weather-icon {
+        font-size: 1.2rem;
+    }
+    
+    .hourly-card .temperature {
+        font-size: 1rem;
+    }
+}
+
+.hourly-cards-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.hourly-cards-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.hourly-cards-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.hourly-cards-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+
+.hourly-cards-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .hourly-cards-container::-webkit-scrollbar {
+        height: 4px;
+    }
+
 html, body {
   height: 100%;
 }
