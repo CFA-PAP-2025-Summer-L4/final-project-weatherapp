@@ -59,8 +59,7 @@ weatherForm.addEventListener('submit', async event => {
 });
 
 
-// Function to fetch weather data
-// This function uses the WeatherAPI to get current weather data for a given city
+// Get current weather data
 
 async function getWeatherData(city) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&query=${city}`
@@ -91,7 +90,7 @@ function displayWeatherInfo(data) {
 
     cityDisplay.textContent = city;
     tempDisplay.textContent = `${temp}°F`;
-    weatherEmoji.textContent = getWeatherEmoji(weather_code);
+    weatherEmoji.textContent = getWeatherEmoji(weather_descriptions);
     descriptionDisplay.textContent = weather_descriptions;
 
     cityDisplay.id = 'cityDisplay';
@@ -105,16 +104,24 @@ function displayWeatherInfo(data) {
     card.appendChild(descriptionDisplay);
 }
 
-function getWeatherEmoji(weatherCode) {
-    if (weatherCode === 1000) return "☀️";
-    if (weatherCode === 1003) return "⛅";
-    if ([1006, 1009].includes(weatherCode)) return "☁️"; 
-    if ([1030, 1135, 1147].includes(weatherCode)) return "🌫️";
-    if (weatherCode >= 1063 && weatherCode <= 1195) return "🌦️"; 
-    if (weatherCode >= 1204 && weatherCode <= 1237) return "🌨️"; 
-    if ([1087, 1273, 1276, 1279, 1282].includes(weatherCode)) return "⛈️"; 
-    if (weatherCode >= 1240 && weatherCode <= 1264) return "🌧️"; 
-    if (weatherCode >= 1279 && weatherCode <= 1282) return "❄️"; 
+function getWeatherEmoji(weather_descriptions) {
+    const description = weather_descriptions.toLowerCase();
+
+    if (description.includes("sunny")) return "☀️";
+    if (description.includes("partly cloudy") || description.includes("mostly sunny")) return "⛅";
+    if (description.includes("cloudy")) return "☁️";
+    if (description.includes("rain")) return "🌧️";
+    if (description.includes("snow")) return "❄️";
+    if (description.includes("fog")) return "🌫️";
+    if (description.includes("thunder")) return "⛈️";
+    if (description.includes("drizzle")) return "🌦️";
+    if (description.includes("windy")) return "💨";
+    if (description.includes("hail")) return "🌨️";
+    if (description.includes("clear")) return "🌙";
+    if (description.includes("overcast")) return "☁️";
+    if (description.includes("light rain")) return "🌦️";
+    if (description.includes("light snow")) return "🌨️";
+
     return "🌈";
 }
 
