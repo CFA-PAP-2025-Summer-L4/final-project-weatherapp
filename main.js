@@ -26,17 +26,10 @@ const card = document.querySelector('.card');
 
 // Weather Api
 const weatherApiKey = "e1116162e8bb4d738bc190848253107";
-// let city = "Seattle";
 const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&aqi=yes&q=`;
 
-const params2 = {
-    method: "GET",
-    headers: {
-        "X-Api-Key": weatherApiKey
-    }
-};
-
 let city;
+
 // Main input event
 weatherForm.addEventListener('submit', async event => {
 
@@ -47,13 +40,12 @@ weatherForm.addEventListener('submit', async event => {
     if (city) {
         try {
             // Reuhen's section
-         // const weatherData = await getWeatherData(city);
-         // displayWeatherInfo(weatherData);
-          // Jimmy's section
-          const city = cityInput.value.trim();
-          if (city) loadWeatherData(city);
-          // Helen's section
-          showWeather(city);
+            const weatherData = await getWeatherData(city);
+            displayWeatherInfo(weatherData);
+            // Jimmy's section
+            loadWeatherData(city);
+            // Helen's section
+            showWeather(city);
         }
         catch (error) {
             console.error(error)
@@ -63,13 +55,14 @@ weatherForm.addEventListener('submit', async event => {
     else {
         displayError("Please enter a city name.");
     }
-
-
 });
+
+
+// Function to fetch weather data
+// This function uses the WeatherAPI to get current weather data for a given city
 
 async function getWeatherData(city) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&query=${city}`
-    //const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&aqi=yes&q=`;
 
     const response = await fetch(apiUrl);
 
@@ -80,7 +73,6 @@ async function getWeatherData(city) {
 }
 
 function displayWeatherInfo(data) {
-    // const { location: { name: city }, current: { temperature: temp, weather_descriptions, weather_code } } = data;
     const city = data.location.name;
     const temp = data.current.temp_f;
     const weather_descriptions = data.current.condition.text;
@@ -141,7 +133,7 @@ function displayError(message) {
 
 async function fetchWeather(city) {
     try {
-        const response = await fetch(weatherApi + city, params2);
+        const response = await fetch(weatherApi + city);
         console.log("Response from weather API:", response);
         const data = await response.json();
         console.log("Full weather data:", data);
@@ -191,6 +183,9 @@ function epaStatus(epaIndex) {
         return "Unknown";
     }
 }
+
+
+// Hourly Forecast
 document.addEventListener('DOMContentLoaded', () => {
   // loadWeatherData(DEFAULT_LOCATION);
   setupScrollNavigation();
@@ -212,11 +207,11 @@ function setupScrollNavigation() {
   });
 }
 
-async function loadWeatherData(locationQuery) {
+async function loadWeatherData(city) {
   try {
     const url = `${WEATHERAPI_BASE_URL}/forecast.json`
       + `?key=${WEATHERAPI_KEY}`
-      + `&q=${encodeURIComponent(locationQuery)}`
+      + `&q=${encodeURIComponent(city)}`
       + `&days=1&aqi=no&alerts=no`;
 
     const res  = await fetch(url);
@@ -272,7 +267,6 @@ function formatHour(h) {
   if (h > 12)    return `${h - 12} PM`;
   return `${h} AM`;
 }
-
 
 
 // Fun Fact API
