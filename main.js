@@ -37,7 +37,6 @@ weatherForm.addEventListener('submit', async event => {
     if (city) {
         try {
             // Reuhen's section
-            // Reuhen's section
             const weatherData = await getWeatherData(city);
             displayWeatherInfo(weatherData);
             // Jimmy's section
@@ -46,12 +45,10 @@ weatherForm.addEventListener('submit', async event => {
             showWeather(city);
             // Rukiya's section
             showForecast(city);
-            // Jimmy's section
-            loadWeatherData(city);
-            // Helen's section
-            showWeather(city);
-            // Rukiya's section
-            showForecast(city);
+            // Fun Fact section
+            showFunFact();
+            // City Image section
+            showCityImage(city);
         }
         catch (error) {
             console.error(error)
@@ -116,7 +113,7 @@ function getWeatherEmoji(weather_descriptions) {
     if (description.includes("cloudy")) return "☁️";
     if (description.includes("rain")) return "🌧️";
     if (description.includes("snow")) return "❄️";
-    if (description.includes("fog")) return "🌫️";
+    if (description.includes("mist")) return "🌫️";
     if (description.includes("thunder")) return "⛈️";
     if (description.includes("drizzle")) return "🌦️";
     if (description.includes("windy")) return "💨";
@@ -163,6 +160,7 @@ async function fetchWeather(city) {
 
 async function showWeather(city) {
     let weatherData = await fetchWeather(city);
+    const dataRow = document.querySelector("#data-row");
 
     if (weatherData && weatherData.current) {
         const epaIndex = weatherData.current.air_quality["us-epa-index"];
@@ -178,6 +176,7 @@ async function showWeather(city) {
         wind.textContent = "No wind data available.";
         pressure.textContent = "No pressure data available.";
     }
+
 }
 
 
@@ -364,4 +363,34 @@ async function showFunFact() {
         fact.textContent = "No fun fact available at the moment.";
     }
 }
-showFunFact();
+
+// City Image API
+const cityImageApi = "https://api.unsplash.com/search/photos?query=";
+const cityImageApiKey = "AD14s-KmH-o_HxDLWIk_u0w7AmFYDJzDAhTfp4kgNyg";
+
+async function fetchCityImage(city) {
+    try {
+        const response = await fetch(`${cityImageApi}${encodeURIComponent(city)}&client_id=${cityImageApiKey}`);
+        console.log("Response from city image API:", response);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        return data.results[0]?.urls?.regular || null;
+    } catch (error) {
+        console.error("Error fetching city image:", error);
+        return null;
+    }
+}
+
+async function showCityImage(city) {
+    const imageUrl = await fetchCityImage(city);
+
+    if (imageUrl) {
+        card.style.backgroundImage = `url(${imageUrl})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
+    } else {
+        card.style.backgroundImage = 'none';
+        console.log("No image found for the city:", city);
+    }
+}
+
