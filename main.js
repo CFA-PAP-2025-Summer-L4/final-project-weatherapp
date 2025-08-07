@@ -52,6 +52,10 @@ weatherForm.addEventListener('submit', async event => {
             showWeather(city);
             // Rukiya's section
             showForecast(city);
+            // Fun Fact section
+            showFunFact();
+            // City Image section
+            showCityImage(city);
         }
         catch (error) {
             console.error(error)
@@ -364,4 +368,33 @@ async function showFunFact() {
         fact.textContent = "No fun fact available at the moment.";
     }
 }
-showFunFact();
+
+// City Image API
+const cityImageApi = "https://api.unsplash.com/search/photos?query=";
+const cityImageApiKey = "AD14s-KmH-o_HxDLWIk_u0w7AmFYDJzDAhTfp4kgNyg";
+
+async function fetchCityImage(city) {
+    try {
+        const response = await fetch(`${cityImageApi}${encodeURIComponent(city)}&client_id=${cityImageApiKey}`);
+        console.log("Response from city image API:", response);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        return data.results[0]?.urls?.regular || null;
+    } catch (error) {
+        console.error("Error fetching city image:", error);
+        return null;
+    }
+}
+
+async function showCityImage(city) {
+    const imageUrl = await fetchCityImage(city);
+
+    if (imageUrl) {
+        card.style.backgroundImage = `url(${imageUrl})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
+    } else {
+        card.style.backgroundImage = 'none';
+        console.log("No image found for the city:", city);
+    }
+}
