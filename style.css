@@ -5,10 +5,6 @@ html, body {
   overflow: auto;
   text-align: center;
   color: rgb(255, 255, 255);
-  background-color: #87c6e6;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
   font-family: 'Lato', sans-serif;
 }
 
@@ -18,22 +14,20 @@ html, body {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgb(53, 166, 222);
   color: white;
   text-align: center;
   margin-top: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 /* Navbar */
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 32px;
-  background-color: #87c6e6;
-  border-bottom: 1px solid #5f96b1;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo-brand-wrapper {
@@ -49,9 +43,9 @@ html, body {
 
 .navbar-brand {
   font-family: 'Georgia', serif;
-  font-size: 28px;
-  font-weight: bold;
-  color: #222;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #f3e9e9;
 }
 
 /* Search Form */
@@ -72,7 +66,7 @@ html, body {
 .searchbar {
   padding: 8px 16px;
   font-size: 15px;
-  background-color: #007bff;
+  background: rgba(255, 255, 255, 0.15);
   color: hsl(0, 50%, 97%);
   border: none;
   border-radius: 16px;
@@ -81,7 +75,7 @@ html, body {
 }
 
 .searchbar:hover {
-  background-color: #0056b3;
+  background: rgba(255, 255, 255, 0.191);
 }
 
 .formInput {
@@ -97,18 +91,17 @@ html, body {
 /* Main Weather Card */
 
 .card {
-  background: linear-gradient(145deg, #3270b4, #00c6ff);
   border-radius: 16px;
-  padding: 40px 30px;
-  color: white;
-  text-align: center;
-  width: 90%;
-  max-width: 600px;
-  margin: 40px auto;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  padding: 40px 30px;
+  margin: 40px auto;
+  max-width: 650px;
+  overflow: hidden;
   gap: 15px;
 }
 
@@ -185,7 +178,8 @@ html, body {
 
 /* Forecast Sections */
 
-.hourly-forecast-section, .day-forecast-section, .weather-data-section, .fact-section{
+.hourly-forecast-section, .day-forecast-section, 
+.weather-data-section, .fact-section, .card{
     position: relative;
     background: linear-gradient(90deg, 
         rgba(0, 0, 0, 0.3) 0%, 
@@ -418,4 +412,16 @@ html, body {
     font-size: 0.95rem;
     font-weight: 400;
     margin: 0;
+}
+
+#weather-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0.9;
 }
