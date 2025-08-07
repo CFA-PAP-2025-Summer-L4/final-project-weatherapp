@@ -4,8 +4,6 @@ const WEATHERAPI_BASE_URL = 'https://api.weatherapi.com/v1';
 const hourlyCardsContainer = document.querySelector('.hourly-cards-container');
 const cityNameHeader = document.getElementById('city-name');
 
-const DEFAULT_LOCATION = 'Bellevue, WA';
-
 
 const airQuality = document.querySelector("#air-quality");
 const humidity = document.querySelector("#humidity");
@@ -47,6 +45,10 @@ weatherForm.addEventListener('submit', async event => {
             showWeather(city);
             // Rukiya's section
             showForecast(city);
+            // Fun Fact section
+            showFunFact();
+            // City Image section
+            showCityImage(city);
         }
         catch (error) {
             console.error(error)
@@ -59,8 +61,7 @@ weatherForm.addEventListener('submit', async event => {
 });
 
 
-// Function to fetch weather data
-// This function uses the WeatherAPI to get current weather data for a given city
+// Get current weather data
 
 async function getWeatherData(city) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&query=${city}`
@@ -77,9 +78,8 @@ function displayWeatherInfo(data) {
     const city = data.location.name;
     const temp = data.current.temp_f;
     const weather_descriptions = data.current.condition.text;
-    const weather_code = data.current.condition.code;
 
-    console.log("Weather Code:", weather_code);
+    console.log("Weather Condition:", weather_descriptions);
 
     card.textContent = '';
     card.style.display = 'flex';
@@ -91,7 +91,7 @@ function displayWeatherInfo(data) {
 
     cityDisplay.textContent = city;
     tempDisplay.textContent = `${temp}°F`;
-    weatherEmoji.textContent = getWeatherEmoji(weather_code);
+    weatherEmoji.textContent = getWeatherEmoji(weather_descriptions);
     descriptionDisplay.textContent = weather_descriptions;
 
     cityDisplay.id = 'cityDisplay';
@@ -103,19 +103,29 @@ function displayWeatherInfo(data) {
     card.appendChild(tempDisplay);
     card.appendChild(weatherEmoji);
     card.appendChild(descriptionDisplay);
+
+    setWeatherAnimation(weather_descriptions);
 }
 
-function getWeatherEmoji(weatherCode) {
-    if (weatherCode === 1000) return "☀️";
-    if (weatherCode === 1003) return "⛅";
-    if ([1006, 1009].includes(weatherCode)) return "☁️"; 
-    if ([1030, 1135, 1147].includes(weatherCode)) return "🌫️";
-    if (weatherCode >= 1063 && weatherCode <= 1195) return "🌦️"; 
-    if (weatherCode >= 1204 && weatherCode <= 1237) return "🌨️"; 
-    if ([1087, 1273, 1276, 1279, 1282].includes(weatherCode)) return "⛈️"; 
-    if (weatherCode >= 1240 && weatherCode <= 1264) return "🌧️"; 
-    if (weatherCode >= 1279 && weatherCode <= 1282) return "❄️"; 
-    return "🌈";
+function getWeatherEmoji(weather_descriptions) {
+    const description = weather_descriptions.toLowerCase();
+
+    if (description.includes("sunny")) return "☀️";
+    if (description.includes("partly cloudy") || description.includes("mostly sunny")) return "⛅";
+    if (description.includes("cloudy")) return "☁️";
+    if (description.includes("rain")) return "🌧️";
+    if (description.includes("snow")) return "❄️";
+    if (description.includes("mist")) return "🌫️";
+    if (description.includes("thunder")) return "⛈️";
+    if (description.includes("drizzle")) return "🌦️";
+    if (description.includes("windy")) return "💨";
+    if (description.includes("hail")) return "🌨️";
+    if (description.includes("clear")) return "🌙";
+    if (description.includes("overcast")) return "☁️";
+    if (description.includes("light rain")) return "🌦️";
+    if (description.includes("light snow")) return "🌨️";
+
+    return "🌈"; // Default emoji if no match found
 }
 
 function displayError(message) {
@@ -151,6 +161,7 @@ async function fetchWeather(city) {
 
 async function showWeather(city) {
     let weatherData = await fetchWeather(city);
+    const dataRow = document.querySelector("#data-row");
 
     if (weatherData && weatherData.current) {
         const epaIndex = weatherData.current.air_quality["us-epa-index"];
@@ -166,6 +177,7 @@ async function showWeather(city) {
         wind.textContent = "No wind data available.";
         pressure.textContent = "No pressure data available.";
     }
+
 }
 
 
@@ -313,12 +325,11 @@ async function showForecast(city){
                 </div>
 
                 <div class = "col-3">
-                    <img src= "${icon}"/> ${maxTemp}°F ${minTemp}°F
+                    <img src= "${icon}"/> ${maxTemp}°F   ${minTemp}°F
                 </div>
             </div>`;
     });
 }
-// showForecast();
 
 
 
@@ -353,5 +364,66 @@ async function showFunFact() {
         fact.textContent = "No fun fact available at the moment.";
     }
 }
-showFunFact();
 
+// City Image API
+const cityImageApi = "https://api.unsplash.com/search/photos?query=";
+const cityImageApiKey = "AD14s-KmH-o_HxDLWIk_u0w7AmFYDJzDAhTfp4kgNyg";
+
+async function fetchCityImage(city) {
+    try {
+        const response = await fetch(`${cityImageApi}${encodeURIComponent(city)}&client_id=${cityImageApiKey}`);
+        console.log("Response from city image API:", response);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        return data.results[0]?.urls?.regular || null;
+    } catch (error) {
+        console.error("Error fetching city image:", error);
+        return null;
+    }
+}
+
+async function showCityImage(city) {
+    const imageUrl = await fetchCityImage(city);
+
+    if (imageUrl) {
+        card.style.backgroundImage = `url(${imageUrl})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
+    } else {
+        card.style.backgroundImage = 'none';
+        console.log("No image found for the city:", city);
+    }
+}
+
+// Weather Animation
+function setWeatherAnimation(conditionText) {
+  const condition = conditionText.toLowerCase();
+  const video = document.getElementById("weather-video");
+  const source = video.querySelector("source");
+
+  video.appendChild(source);
+  video.style.display = "block";
+
+  let videoFile = "default.mp4";
+
+  if (condition.includes("rain") || condition.includes("shower") || condition.includes("drizzle")) {
+    videoFile = "light-rain.mp4";
+  } else if (condition.includes("overcast")) {
+    videoFile = "overcast.mp4";
+  } else if (condition.includes("mostly sunny") || condition.includes("partly cloudy")) {
+    videoFile = "partly-cloudy.mp4";
+  } else if (condition.includes("sunny")) {
+    videoFile = "sunny.mp4";
+  } else if (condition.includes("clear")) {
+    videoFile = "clear.mp4";
+  } else if (condition.includes("snow")) {
+    videoFile = "snow.mp4";
+  } else if (condition.includes("heavy rain") || condition.includes("hail")) {
+    videoFile = "heavy-rain.mp4";
+  }  else {
+    videoFile = "default.mp4";
+  }
+
+  source.setAttribute("src", `videos/${videoFile}`);
+  video.load();
+}
