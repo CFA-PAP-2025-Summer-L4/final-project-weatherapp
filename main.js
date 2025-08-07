@@ -103,6 +103,8 @@ function displayWeatherInfo(data) {
     card.appendChild(tempDisplay);
     card.appendChild(weatherEmoji);
     card.appendChild(descriptionDisplay);
+
+    setWeatherAnimation(weather_descriptions);
 }
 
 function getWeatherEmoji(weather_descriptions) {
@@ -125,7 +127,6 @@ function getWeatherEmoji(weather_descriptions) {
 
     return "🌈"; // Default emoji if no match found
 }
-
 
 function displayError(message) {
     const errorDisplay = document.createElement('p');
@@ -324,7 +325,7 @@ async function showForecast(city){
                 </div>
 
                 <div class = "col-3">
-                    <img src= "${icon}"/> ${maxTemp}°F ${minTemp}°F
+                    <img src= "${icon}"/> ${maxTemp}°F   ${minTemp}°F
                 </div>
             </div>`;
     });
@@ -392,5 +393,38 @@ async function showCityImage(city) {
         card.style.backgroundImage = 'none';
         console.log("No image found for the city:", city);
     }
+}
+
+// Weather Animation
+function setWeatherAnimation(conditionText) {
+  const condition = conditionText.toLowerCase();
+  const video = document.getElementById("weather-video");
+  const source = video.querySelector("source");
+
+  video.appendChild(source);
+  video.style.display = "block";
+
+  let videoFile = "default.mp4";
+
+  if (condition.includes("rain") || condition.includes("shower") || condition.includes("drizzle")) {
+    videoFile = "light-rain.mp4";
+  } else if (condition.includes("overcast")) {
+    videoFile = "overcast.mp4";
+  } else if (condition.includes("mostly sunny") || condition.includes("partly cloudy")) {
+    videoFile = "partly-cloudy.mp4";
+  } else if (condition.includes("sunny")) {
+    videoFile = "sunny.mp4";
+  } else if (condition.includes("clear")) {
+    videoFile = "clear.mp4";
+  } else if (condition.includes("snow")) {
+    videoFile = "snow.mp4";
+  } else if (condition.includes("heavy rain") || condition.includes("hail")) {
+    videoFile = "heavy-rain.mp4";
+  }  else {
+    videoFile = "default.mp4";
+  }
+
+  source.setAttribute("src", `videos/${videoFile}`);
+  video.load();
 }
 
