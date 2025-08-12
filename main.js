@@ -28,7 +28,7 @@ const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiK
 let city;
 
 // Get the current location
-const locationApi = "http://ip-api.com/json";
+const locationApi = "https://ip-api.com/json";
 async function getCurrentLocation() {
     try {
         const response = await fetch(locationApi);
