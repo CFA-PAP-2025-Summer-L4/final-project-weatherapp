@@ -22,7 +22,7 @@ const card = document.querySelector('.card');
 
 
 // Weather Api
-const weatherApiKey = "e1116162e8bb4d738bc190848253107";
+const weatherApiKey = "b6f7e3d90b89473f990113850251408";
 const weatherApi = `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&aqi=yes&q=`;
 
 let city;
@@ -252,7 +252,7 @@ function setupScrollNavigation() {
 async function loadWeatherData(city) {
   try {
     const url = `${WEATHERAPI_BASE_URL}/forecast.json`
-      + `?key=${WEATHERAPI_KEY}`
+      + `?key=${weatherApiKey}`
       + `&q=${encodeURIComponent(city)}`
       + `&days=1&aqi=no&alerts=no`;
 
@@ -317,7 +317,7 @@ const baseUrl = "http://api.weatherapi.com/v1";
 const forecast = "/forecast.json"
 
 async function getForecast(city) {
-    const finalUrl = baseUrl + forecast + "?key=" + apiKey + "&q=" + city + "&days=5";
+    const finalUrl = baseUrl + forecast + "?key=" + weatherApiKey + "&q=" + city + "&days=5";
 
     try {
         let forecast = await fetch(finalUrl);
